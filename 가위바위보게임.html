@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보 게임</title>
+    <style>
+        /* 기초적인 가운데 정렬 및 스타일링 */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        /* 버튼 공통 스타일 */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .start-btn {
+            background-color: #4CAF50;
+        }
+        .start-btn:hover {
+            background-color: #45a049;
+        }
+        .stop-btn {
+            background-color: #f44336;
+        }
+        .stop-btn:hover {
+            background-color: #da190b;
+        }
+        #webcam-container {
+            margin: 20px auto;
+            border: 4px solid #ddd;
+            border-radius: 10px;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            background-color: #000;
+        }
+        #result-container {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff5722;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            display: inline-block;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>가위바위보 게임</h1>
+    <button type="button" class="start-btn" onclick="gameStart()">시작</button>
+    <button type="button" class="stop-btn" onclick="gameStop()">종료</button>
+    
+    <div id="webcam-container"></div>
+    <div id="result-container">대기 중...</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+
+    const URL = "https://teachablemachine.withgoogle.com/models/6ryYFc5kZ/";
+
+    let model, webcam, resultContainer, maxPredictions;
+    let predictionInterval; // 0.5초마다 실행될 타이머를 저장할 변수
+    let isModelLoaded = false; // 모델과 웹캠이 초기 로드되었는지 확인하는 변수
+
+    // 처음에 모델과 웹캠을 세팅하는 함수
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        const flip = true; 
+        webcam = new tmImage.Webcam(200, 200, flip); 
+        await webcam.setup(); 
+        await webcam.play();
+        
+        window.requestAnimationFrame(loop);
+
+        // 웹캠 캔버스를 화면에 추가하기 전에 기존에 있던 것을 비워줍니다 (종료 후 재시작 대비)
+        const container = document.getElementById("webcam-container");
+        container.innerHTML = "";
+        container.appendChild(webcam.canvas);
+        
+        resultContainer = document.getElementById("result-container");
+        isModelLoaded = true; // 로드 완료 표시
+    }
+
+    async function loop() {
+        if (webcam && webcam.canvas) {
+            webcam.update(); 
+            window.requestAnimationFrame(loop);
+        }
+    }
+
+    // 시작 버튼 함수
+    async function gameStart() {
+        // 처음 누르거나 종료 후 다시 시작할 때 로드 진행
+        if (!isModelLoaded) {
+            // resultContainer가 생성 전일 수 있으므로 직접 선언 유연하게 처리
+            const resOut = document.getElementById("result-container");
+            resOut.innerHTML = "모델 로딩 중...";
+            await init();
+        } else {
+            // 이미 로드된 상태에서 멈췄던 웹캠을 다시 켭니다
+            await webcam.play();
+        }
+
+        // 이미 타이머가 돌아가고 있다면 중복 방지를 위해 삭제 후 다시 시작
+        if (predictionInterval) {
+            clearInterval(predictionInterval);
+        }
+
+        resultContainer.innerHTML = "게임 시작!";
+        
+        // 0.5초마다 예측(predict) 함수 호출
+        predictionInterval = setInterval(async function() {
+            await predict();
+        }, 500);
+    }
+
+    // 종료 버튼 함수
+    function gameStop() {
+        // 1. 분석 타이머 멈춤
+        if (predictionInterval) {
+            clearInterval(predictionInterval); 
+        }
+        
+        // 2. 웹캠 작동 완전히 정지
+        if (webcam) {
+            webcam.stop();
+        }
+        
+        // 3. 상태 리셋 및 안내 메시지 출력
+        isModelLoaded = false; 
+        const resOut = document.getElementById("result-container");
+        if (resOut) {
+            resOut.innerHTML = "게임 종료";
+        }
+    }
+
+    // AI가 이미지를 분석하는 함수
+    async function predict() {
+        if (!webcam || !model) return;
+        
+        const prediction = await model.predict(webcam.canvas);
+        
+        let highestClassName = "";
+        let highestProbability = 0;
+
+        for (let i = 0; i < maxPredictions; i++) {
+            if (prediction[i].probability > highestProbability) {
+                highestProbability = prediction[i].probability;
+                highestClassName = prediction[i].className;
+            }
+        }
+
+        resultContainer.innerHTML = highestClassName + " (" + Math.round(highestProbability * 100) + "%)";
+    }
+</script>
+
+</body>
+</html>
