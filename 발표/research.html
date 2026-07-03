@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>40대, 생성형 AI로 제2의 인생 준비</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #4285f4;
+            --bg-color: #f8f9fa;
+            --text-color: #202124;
+            --card-bg: #ffffff;
+            --border-color: #dadce0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .intro-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .intro-section h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #111;
+            word-break: keep-all;
+        }
+
+        .intro-section p {
+            color: #5f6368;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: #1557b0;
+        }
+
+        .pdf-viewer-container {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 800px;
+        }
+
+        .pdf-toolbar {
+            background-color: #f1f3f4;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .pdf-title {
+            font-weight: 500;
+            color: #3c4043;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            color: #5f6368;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-viewer-container {
+                height: 500px;
+            }
+            .intro-section h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">AI제2인생 연구소</a>
+            <nav class="nav-links">
+                <a href="../">홈</a>
+                <a href="4060_ai.html">웹페이지로보기</a>
+                
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="intro-section">
+            <h1>40대, 생성형 AI로 제2의 인생 준비</h1>
+            <p>제미나이 딥리서치(Gemini Deep Research)를 통해 심층 분석한 40대의 생성형 AI 활용 및 커리어 전환 가이드북입니다. 웹브라우저에서 바로 확인하거나 다운로드하여 확인하실 수 있습니다.</p>
+            <a href="40대, 생성형 AI로 제2의 인생 준비.pdf" download class="btn-download">
+                PDF 다운로드 받기
+            </a>
+        </section>
+
+        <section class="pdf-viewer-container">
+            <div class="pdf-toolbar">
+                <span class="pdf-title">40대, 생성형 AI로 제2의 인생 준비.pdf</span>
+                <span style="color: #70757a;">미리보기 스크롤을 내려 확인하세요</span>
+            </div>
+            <!-- PDF Embedding using iframe -->
+            <iframe src="40대, 생성형 AI로 제2의 인생 준비.pdf#toolbar=1" title="PDF Viewer"></iframe>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 AI제2인생 연구소. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

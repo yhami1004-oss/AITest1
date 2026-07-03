@@ -4,97 +4,91 @@
     <meta charset="UTF-8">
     <title>자기소개 페이지</title>
     <style>
-        /* 1. 전체 기본 스타일 및 초기화 */
+        /* 1. 기본 스타일 리셋 및 전체 설정 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Malgun Gothic', sans-serif;
         }
 
         body {
-            background-color: #f8fafc; /* 부드러운 배경색 */
-            color: #334155;            /* 눈이 편안한 다크 그레이 */
-            line-height: 1.7;
-            padding-bottom: 60px;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            background-color: #f8f9fa; /* 눈이 편안한 밝은 회색 바탕 */
+            color: #333333;
+            line-height: 1.6;
         }
 
-        /* 2. 헤더 및 네비게이션 디자인 */
+        /* 2. 헤더 (상단 네비게이션) */
         header {
-            background-color: #1e293b; /* 딥 네이비 */
-            color: #ffffff;
+            background-color: #ffffff;
+            padding: 30px 20px;
             text-align: center;
-            padding: 40px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
+            color: #212529;
             margin-bottom: 15px;
-            font-weight: 700;
         }
 
-        nav {
-            margin-top: 10px;
-        }
-
-        /* 링크(메뉴) 스타일 */
         nav a {
-            color: #94a3b8;
+            color: #495057;
             text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        
-        nav a:hover {
-            color: #38bdf8; /* 마우스 올리면 시원한 하늘색 */
-        }
-        
-        nav a:active {
-            color: #38bdf8;
-            font-weight: 900;
+            font-weight: 500;
+            margin: 0 10px;
+            transition: color 0.2s ease; /* 부드러운 색상 변경 효과 */
         }
 
-        /* 3. 메인 콘텐츠 레이아웃 (중앙 정렬 및 카드 스타일) */
+        nav a:hover {
+            color: #4dabf7; /* 부드러운 파란색으로 변경 */
+        }
+
+        nav a:active {
+            color: #15aabf;
+            font-weight: bold;
+        }
+
+        /* 3. 메인 콘텐츠 영역 (중앙 정렬 및 너비 제한) */
         main {
             max-width: 800px;
-            margin: 40px auto;
+            margin: 40px auto; /* 위아래 40px 여백, 좌우 자동 중앙 정렬 */
             padding: 0 20px;
         }
 
+        /* 세션 공통 스타일 */
         section {
             background-color: #ffffff;
-            border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04); /* 은은한 그림자 */
+            border-radius: 12px; /* 모서리를 둥글게 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03); /* 은은한 그림자 */
         }
 
         section h2 {
-            color: #0f172a;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
+            font-size: 1.4rem;
+            color: #2b2d42;
+            border-left: 4px solid #4dabf7; /* 제목 왼쪽에 포인트 바 추가 */
+            padding-left: 12px;
             margin-bottom: 20px;
-            font-size: 1.5rem;
         }
 
-        /* 4. 자기소개 섹션 디테일 */
+        /* 4. 자기소개 섹션 */
         #intro figure {
             text-align: center;
             margin-bottom: 20px;
         }
 
         #intro img {
-            border-radius: 50%; /* 프로필 사진을 동그랗게 */
-            border: 4px solid #e2e8f0;
+            border-radius: 50%; /* 프로필 이미지를 동그랗게 */
+            border: 3px solid #e9ecef;
             object-fit: cover;
         }
 
         #intro figcaption {
             font-size: 0.9rem;
-            color: #64748b;
+            color: #868e96;
             margin-top: 8px;
         }
 
@@ -102,58 +96,60 @@
             margin-bottom: 12px;
         }
 
-        /* 5. 취미 생활 섹션 디테일 */
+        /* 5. 취미 생활 섹션 */
         article {
-            background-color: #f1f5f9; /* 내부 박스 구분 */
+            background-color: #fdfdfd;
+            border: 1px solid #f1f3f5;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
         }
 
+        article:last-child {
+            margin-bottom: 0; /* 마지막 article은 아래 여백 제거 */
+        }
+
         article h3 {
-            color: #334155;
+            font-size: 1.1rem;
+            color: #495057;
             margin-bottom: 10px;
-            font-size: 1.2rem;
         }
 
         article p {
+            color: #6c757d;
             margin-bottom: 15px;
-            color: #475569;
         }
 
-        /* 취미 이미지 정렬 */
+        /* 이미지들을 깔끔하게 배열 */
         article img {
             border-radius: 6px;
             margin-right: 10px;
             margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        /* 이미지에 마우스 올리면 살짝 커지는 효과 */
-        article img:hover {
-            transform: scale(1.03);
-        }
-
-        /* 6. 푸터 디자인 */
+        /* 6. 푸터 */
         footer {
             text-align: center;
-            color: #94a3b8;
+            padding: 30px 20px;
+            color: #868e96;
             font-size: 0.9rem;
-            margin-top: 50px;
+            margin-top: 60px;
+            border-top: 1px solid #e9ecef;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>안녕하세요. 환이입니다.</h1>
+        <h1>안녕하세요. 홍길동입니다.</h1>
         <nav>
             <a href="#intro">소개</a>
             <a href="#hobby">취미</a>
             <a href="#goal">수업 포부</a>
-            <a href="./가위바위보게임.html" target="_blank">가위바위보게임</a>  
-            <a href="./rps-game" target="_blank">[REACT]가위바위보게임</a> 
+            <a href="./가위바위보게임.html" target="_blank">가위바위보게임</a>
+            <a href="https://aiswsnp.github.io/AITest/rps-game">[REACT]가위바위보판별게임</a>
+            <a href="./발표/research.html">발표자료</a>
         </nav>
     </header>
 
